@@ -6,6 +6,9 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// require mongoose for the id
+const mongoose = require("mongoose");
+
 // Set Static File Directory
 app.use(express.static(__dirname + "/public"));
 
@@ -14,6 +17,7 @@ app.use(express.static(__dirname + "/public"));
  ************/
 
 const db = require("./models");
+const BooksModel = require("./models/books");
 
 /**********
  * ROUTES *
@@ -50,9 +54,30 @@ app.get("/api", (req, res) => {
         description: "Get All books information",
       },
       // TODO: Write other API end-points description here like above
+      {
+        method: "GET",
+        path: "/api/books/:id",
+        description: "Get a book information",
+      },
+      {
+        method: "POST",
+        path: "/api/books/",
+        description: "Add a book information into database",
+      },
+      {
+        method: "PUT",
+        path: "/api/books/:id",
+        description: "Update a book information based upon the specified ID",
+      },
+      {
+        method: "DELETE",
+        path: "/api/books/:id",
+        description: "Delete a book based upon the specified ID",
+      },
     ],
   });
 });
+
 // TODO:  Fill the values
 app.get("/api/profile", (req, res) => {
   res.json({
@@ -66,6 +91,7 @@ app.get("/api/profile", (req, res) => {
     hobbies: ["making crab burgers"],
   });
 });
+
 /*
  * Get All books information
  */
@@ -81,6 +107,33 @@ app.get("/api/books/", (req, res) => {
     res.json(books);
   });
 });
+
+/*
+ * Get a book information
+ */
+app.get("/api/books/:id", (req, res) => {
+  /*
+   * Get the book ID from the request parameters
+   */
+  const bookId = req.params.id;
+  /*
+   * use the books model and query to mongo database to get one objects
+   */
+  db.books
+    .findOne({ _id: bookId })
+    .exec()
+    .then((result) => {
+      console.log(result);
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        error: err,
+      });
+    });
+});
+
 /*
  * Add a book information into database
  */
@@ -96,8 +149,26 @@ app.post("/api/books/", (req, res) => {
   /*
    * return the new book information object as json
    */
-  var newBook = {};
-  res.json(newBook);
+  const book = new db.books({
+    title: req.body.title,
+    author: req.body.author,
+    releaseDate: req.body.releaseDate,
+    genre: req.body.genre,
+    rating: req.body.rating,
+    language: req.body.language,
+  });
+
+  book
+    .save()
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => console.log(err));
+
+  res.status(201).json({
+    message: "Handling POST requests to /api/books",
+    createdBook: book,
+  });
 });
 
 /*
@@ -117,9 +188,34 @@ app.put("/api/books/:id", (req, res) => {
   /*
    * Send the updated book information as a JSON object
    */
-  var updatedBookInfo = {};
-  res.json(updatedBookInfo);
+  db.books
+    .findOneAndUpdate(
+      { _id: bookId },
+      {
+        $set: {
+          title: req.body.title,
+          author: req.body.author,
+          releaseDate: req.body.releaseDate,
+          genre: req.body.genre,
+          rating: req.body.rating,
+          language: req.body.language,
+        },
+      },
+      { new: true }
+    )
+    .exec()
+    .then((result) => {
+      console.log(result);
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        error: err,
+      });
+    });
 });
+
 /*
  * Delete a book based upon the specified ID
  */
@@ -135,16 +231,27 @@ app.delete("/api/books/:id", (req, res) => {
   /*
    * Send the deleted book information as a JSON object
    */
-  var deletedBook = {};
-  res.json(deletedBook);
+  db.books
+    .findOneAndDelete({ _id: bookId })
+    .exec()
+    .then((result) => {
+      console.log(result);
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        error: err,
+      });
+    });
 });
 
 /**********
  * SERVER *
  **********/
 
-// listen on the port 3000
-const port = 3000;
+// listen on the port 2000
+const port = 2000;
 app.listen(process.env.PORT || port, () => {
   console.log(
     "Express server is up and running on http://localhost:" + port + "/"
