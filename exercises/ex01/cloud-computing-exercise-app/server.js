@@ -6,8 +6,8 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// require mongoose for the id
-const mongoose = require("mongoose");
+// require dotenv for processing env variables
+require("dotenv").config();
 
 // Set Static File Directory
 app.use(express.static(__dirname + "/public"));
@@ -249,10 +249,9 @@ app.delete("/api/books/:id", (req, res) => {
 /**********
  * SERVER *
  **********/
+const port = process.env.PORT || 80;
 
-// listen on the port 2000
-const port = 2000;
-app.listen(process.env.PORT || port, () => {
+app.listen(port, () => {
   console.log(
     "Express server is up and running on http://localhost:" + port + "/"
   );
