@@ -17,7 +17,6 @@ app.use(express.static(__dirname + "/public"));
  ************/
 
 const db = require("./models");
-const BooksModel = require("./models/books");
 
 /**********
  * ROUTES *
@@ -83,11 +82,11 @@ app.get("/api/profile", (req, res) => {
   res.json({
     name: "Spongebob Sqarepants",
     homeCountry: "Bikini Bottom",
-    degreeProgram: "", //informatics or CSE.. etc
+    degreeProgram: "Chef", //informatics or CSE.. etc
     email: "spongebob.squarepants@crusty-crab.de",
     deployedURLLink: "", //leave this blank for the first exercise
     apiDocumentationURL: "", //leave this also blank for the first exercise
-    currentCity: "",
+    currentCity: "Bikini Bottom",
     hobbies: ["making crab burgers"],
   });
 });
