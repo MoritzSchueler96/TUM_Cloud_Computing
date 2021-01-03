@@ -171,7 +171,7 @@ app.delete("/api/books/:id", (req, res) => {
  * Send message to user
  */
 app.get("/api/exercise2/", (req, res) => {
-  res.send("group33 application deployed using docker");
+  res.send("group 33 application deployed using docker");
 });
 
 /**********
