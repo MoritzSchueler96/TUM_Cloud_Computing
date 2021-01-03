@@ -7,7 +7,13 @@ const config = require('../config');
 /**
  * Convert act to Promise
  */
-const act = Promise.promisify(seneca.client({ host: config.product_descp_service.host, port: config.product_descp_service.port }).act, { context: seneca });
+const act = Promise.promisify(
+    seneca.client({
+        host: config.product_descp_service.host,
+        port: config.product_descp_service.port,
+    }).act,
+    { context: seneca }
+);
 
 /**
  * Service Method
@@ -17,13 +23,13 @@ const GET_PRODUCT_NAME = { role: 'product', cmd: 'getProductName' };
 /**
  * Call Service Method
  */
-const getProductURL = function(productId){
-    return act(Object.assign({}, GET_PRODUCT_URL, { productId }));
+const getProductURL = function (productId) {
+    return act(Object.assign({}, GET_PRODUCT_URL, { Id: productId }));
 };
-const getProductName = function(productId){
-    return act(Object.assign({}, GET_PRODUCT_NAME, { productId }));
+const getProductName = function (productId) {
+    return act(Object.assign({}, GET_PRODUCT_NAME, { Id: productId }));
 };
 module.exports = {
     getProductURL,
-    getProductName
+    getProductName,
 };

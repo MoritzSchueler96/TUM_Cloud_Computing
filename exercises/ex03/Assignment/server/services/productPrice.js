@@ -27,7 +27,7 @@ const getProductPrice = function (productId) {
     /**
      * To DO: Write act Method
      */
-    return act(Object.assign({}, GET_PRODUCT_PRICE, { productId }));
+    return act(Object.assign({}, GET_PRODUCT_PRICE, { Id: productId }));
 };
 module.exports = {
     getProductPrice,

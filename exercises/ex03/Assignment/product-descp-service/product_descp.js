@@ -8,7 +8,8 @@ module.exports = function (options) {
 
     //To DO: add the pattern functions and describe the logic inside the function
     function productURL(msg, respond) {
-        const bookId = msg.productId;
+        console.log(msg);
+        const bookId = msg.Id;
         var parsed = JSON.parse(mockData);
         var res = parsed[bookId].productURL;
         console.log(`book ID = ${bookId} \n`);
@@ -17,7 +18,8 @@ module.exports = function (options) {
     }
 
     function productName(msg, respond) {
-        const bookId = msg.productId;
+        console.log(msg);
+        const bookId = msg.Id;
         var parsed = JSON.parse(mockData);
         var res = parsed[bookId].productName;
         console.log(`book ID = ${bookId} \n`);

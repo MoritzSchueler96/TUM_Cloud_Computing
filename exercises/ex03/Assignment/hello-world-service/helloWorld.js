@@ -4,12 +4,11 @@ module.exports = function (options) {
 
     //Describe the logic inside the function
     function sayWelcome(msg, respond) {
-        if(msg.name){
-            var res = "Welcome "+msg.name;
+        if (msg.name) {
+            var res = 'Welcome ' + msg.name;
             respond(null, { result: res });
-        }
-        else {
-            respond(null, { result: ''});
+        } else {
+            respond(null, { result: '' });
         }
     }
-}
+};

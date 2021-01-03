@@ -34,6 +34,13 @@ router.use(function (req, res, next) {
      * Logs can be printed here while accessing any routes
      */
     console.log('Accessing Exercises Routes');
+    console.log('Params:');
+    console.log(req.params);
+    console.log('URL:');
+    console.log(req.url);
+    console.log('Result:');
+    console.log(res.statusCode);
+    console.log('Next:');
     next();
 });
 /**
@@ -47,6 +54,8 @@ router.get('/', function (req, res) {
  */
 // query params: name & productId
 router.route('/exercise3/:name/:productId').get(function (req, res) {
+    console.log('Route params');
+    console.log(req.params);
     join(
         helloWorldService.sayWelcome(req.params.name),
         productDescpService.getProductURL(req.params.productId),
