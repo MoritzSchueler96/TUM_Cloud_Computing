@@ -8,22 +8,28 @@ module.exports = function (options) {
 
     //To DO: add the pattern functions and describe the logic inside the function
     function productURL(msg, respond) {
-        console.log(msg);
-        const bookId = msg.Id;
-        var parsed = JSON.parse(mockData);
-        var res = parsed[bookId].productURL;
-        console.log(`book ID = ${bookId} \n`);
-        console.log(`book name = ${res} \n`);
+        var res = '';
+
+        for (let i = 0; i < mockData.length; i++) {
+            // program logic
+            if (mockData[i].product_id == msg.productId) {
+                res = mockData[i].product_url;
+                break;
+            }
+        }
         respond(null, { result: res });
     }
 
     function productName(msg, respond) {
-        console.log(msg);
-        const bookId = msg.Id;
-        var parsed = JSON.parse(mockData);
-        var res = parsed[bookId].productName;
-        console.log(`book ID = ${bookId} \n`);
-        console.log(`book name = ${res} \n`);
+        var res = '';
+
+        for (let i = 0; i < mockData.length; i++) {
+            // program logic
+            if (mockData[i].product_id == msg.productId) {
+                res = mockData[i].product_name;
+                break;
+            }
+        }
         respond(null, { result: res });
     }
 };
