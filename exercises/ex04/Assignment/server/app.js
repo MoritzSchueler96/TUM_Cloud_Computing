@@ -46,7 +46,7 @@ router.get('/', function (req, res) {
 /**
  * Exercise 4 Route
  */
-router.get('/exercise4/', (req, res) => {
+app.get('api/exercise4/', (req, res) => {
     res.send('group 33 application deployed using kubernetes');
 });
 
