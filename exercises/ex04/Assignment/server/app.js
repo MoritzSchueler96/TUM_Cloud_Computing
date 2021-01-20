@@ -46,8 +46,20 @@ router.get('/', function (req, res) {
 /**
  * Exercise 4 Route
  */
+app.get('/api/exercise2/', (req, res) => {
+    res.send('group 33 application deployed using docker');
+});
+app.route('/ex2/').get(function (req, res) {
+    res.send('group 33 application deployed using docker');
+});
 router.get('/exercise4/', (req, res) => {
     res.send('group 33 application deployed using kubernetes');
+});
+router.get('/ex4/', function (req, res) {
+    res.json({ message: 'group 33 application deployed using kubernetes' });
+});
+router.route('/exe4/').get(function (req, res) {
+    res.send({ message: 'group 33 application deployed using kubernetes' });
 });
 
 /**
