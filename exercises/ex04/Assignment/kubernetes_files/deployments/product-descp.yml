@@ -18,4 +18,4 @@ spec:
         - name: product-descp
           image: moritzschueler96/microservice:productdescp
           ports:
-            - containerPort: 9001
+            - containerPort: 9002
